@@ -1,16 +1,16 @@
 ---
 - name: Hello World!
-  hosts : switches
+  hosts: switches
   connection: local
-  gather_facts: no
+  gather_facts: false
 
   vars_prompt:
     - name: USERNAME
       prompt: User name
-      private: no
+      private: false
     - name: DEVICE_PASSWORD
       prompt: Device password
-      private: yes
+      private: true
 
   tasks:
     - name: Get Junos device information
@@ -20,6 +20,5 @@
       register: junos_facts
 
     - name: Print Junos facts
-      debug:
-       msg: "{{ junos_facts }}"
-
+      ansible.builtin.debug:
+        msg: "{{ junos_facts }}"
