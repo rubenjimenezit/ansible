@@ -23,8 +23,8 @@
         config_mode: 'private'
         load: 'merge'
         lines:
-          - "set system host-name {{ newhostname }}.test10"
-        comment: "Ansible Ruben Testing: Change hostname"
+          - "set system host-name {{ newhostname }}.test14"
+        comment: "Ansible Ruben Testing: Configure hostname"
       vars:
         output: 
       register: response
@@ -42,12 +42,13 @@
 #        passwd: "{{ DEVICE_PASSWORD }}"
         timeout: 120
         config_mode: 'private'
-        load: 'merge'
+        load: 'set'
         lines:
+          - "delete system ntp"
           - "set system ntp server {{ ntp_server1 }} prefer"
           - "set system ntp server {{ ntp_server2 }} prefer"
           - "set system ntp source-address {{ ntp_source_address }}"
-        comment: "Ansible Ruben Testing: Change NTP servers"
+        comment: "Ansible Ruben Testing: Configure NTP servers"
       register: response
 
 
