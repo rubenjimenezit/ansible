@@ -4,6 +4,7 @@
   connection: local
   gather_facts: false
 
+#  The following lines are required only if ssh keys are not set up in both the controller machine and the host
 #  vars_prompt:
 #    - name: USERNAME
 #      prompt: User name
@@ -15,13 +16,15 @@
   tasks:
     - name: Chane hostname using private config mode.
       juniper.device.config:
+#        The following lines are required only if ssh keys are not set up in both the controller machine and the host
 #        user: "{{ USERNAME }}"
 #        passwd: "{{ DEVICE_PASSWORD }}"
         timeout: 120
         config_mode: 'private'
         load: 'merge'
         lines:
-          - "set system host-name AUSLAB-SW01.test3"
+          - "set system host-name {{ newhostname }}.test5"
+        comment: "Ansible Ruben testing"
       register: response
 
     - name: Print the config changes.
