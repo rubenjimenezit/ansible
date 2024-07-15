@@ -1,0 +1,20 @@
+---
+- name: 'Testing junos.device collection'
+  hosts: junos
+  connection: local
+  gather_facts: false
+
+#  The following lines are required only if ssh keys are not set up in both the controller machine and the host
+#  vars_prompt:
+#    - name: USERNAME
+#      prompt: User name
+#      private: false
+#    - name: DEVICE_PASSWORD
+#      prompt: Device password
+#      private: true
+
+  tasks:
+    - name: Generate HOSTNAME config from template
+      template:
+        src: system.j2
+        dest: test_system.conf
