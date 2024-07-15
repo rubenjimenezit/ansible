@@ -1,0 +1,29 @@
+---
+- name: 'Testing junos.device collection'
+  hosts: junos
+  connection: local
+  gather_facts: false
+
+#  vars_prompt:
+#    - name: USERNAME
+#      prompt: User name
+#      private: false
+#    - name: DEVICE_PASSWORD
+#      prompt: Device password
+#      private: true
+
+  tasks:
+    - name: Chane hostname using private config mode.
+      juniper.device.config:
+#        user: "{{ USERNAME }}"
+#        passwd: "{{ DEVICE_PASSWORD }}"
+        timeout: 120
+        config_mode: 'private'
+        load: 'merge'
+        lines:
+          - "set system host-name AUSLAB-SW01.test3"
+      register: response
+
+    - name: Print the config changes.
+      ansible.builtin.debug:
+        var: response.diff_lines
