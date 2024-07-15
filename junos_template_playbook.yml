@@ -15,6 +15,7 @@
 
   tasks:
     - name: Generate HOSTNAME config from template
-      template:
+      ansible.builtin.template:
         src: system.j2
         dest: test_system.conf
+        mode: "0600"  # explicitly sets the desired permissions, to make the results predictable
