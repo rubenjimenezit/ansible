@@ -14,7 +14,7 @@
 #      private: true
 
   tasks:
-    - name: Chane hostname using private config mode.
+    - name: Change hostname using private config mode.
       juniper.device.config:
 #        The following lines are required only if ssh keys are not set up in both the controller machine and the host
 #        user: "{{ USERNAME }}"
@@ -23,10 +23,35 @@
         config_mode: 'private'
         load: 'merge'
         lines:
-          - "set system host-name {{ newhostname }}.test5"
-        comment: "Ansible Ruben testing"
+          - "set system host-name {{ newhostname }}.test10"
+        comment: "Ansible Ruben Testing: Change hostname"
+      vars:
+        output: 
       register: response
 
+
     - name: Print the config changes.
-      ansible.builtin.debug:
+      when: response is changed
+      debug:
+        var: response.diff_lines
+
+    - name: Change NTP servers using private config mode.
+      juniper.device.config:
+#        The following lines are required only if ssh keys are not set up in both the controller machine and the host
+#        user: "{{ USERNAME }}"
+#        passwd: "{{ DEVICE_PASSWORD }}"
+        timeout: 120
+        config_mode: 'private'
+        load: 'merge'
+        lines:
+          - "set system ntp server {{ ntp_server1 }} prefer"
+          - "set system ntp server {{ ntp_server2 }} prefer"
+          - "set system ntp source-address {{ ntp_source_address }}"
+        comment: "Ansible Ruben Testing: Change NTP servers"
+      register: response
+
+
+    - name: Print the config changes.
+      when: response is changed
+      debug:
         var: response.diff_lines
