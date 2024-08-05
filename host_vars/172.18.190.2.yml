@@ -1,1 +1,2 @@
-newhostname: AUSLAB-SW01
+newhostname: AUSLAB-SW01nh
+ntp_source_address: 172.18.190.2

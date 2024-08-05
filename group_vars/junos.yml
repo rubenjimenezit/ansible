@@ -1,5 +1,4 @@
 ---
 ntp_server1: 194.0.5.123
-ntp_server22: 1.1.1.1
 ntp_server2: 138.197.15.27
-ntp_source_address: 172.18.190.2
+ntp_server22: 138.197.15.27
